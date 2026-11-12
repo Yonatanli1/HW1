@@ -1,9 +1,29 @@
 import java.util.Arrays;
 
 public class Assignment01Q04 {
-
+    public static void shiftOneToRight(int [] array) {
+        int i = array.length - 1;
+        int last = array[i];
+        while (i > 0) {
+            array[i] = array[i - 1];
+            i--;
+        }
+        array[0] = last;
+    }
     public static int[] shiftArrayCyclic(int[] array, int move, char direction) {
-        // TODO: implement
+        if (array.length == 0 || (direction != 'L' && direction != 'R') || move == 0) {
+            return array; // we return the array untouched if an input is invalid
+        }
+        if (direction == 'L') {
+            move = -move; // we cut code duplications
+        }
+        move = move % array.length; // a shift of array.length is the same as no shift at all
+        if (move < 0) {
+            move += array.length; // we want to shift right, so we convert left shifts to right shifts
+        }
+        for (int i = 0; i< move; i++) {
+            shiftOneToRight(array);
+        }
         return array;
     }
 
